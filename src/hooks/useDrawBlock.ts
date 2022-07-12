@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react";
 
 //Atoms
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import { canvasState } from "../atoms/CanvasAtom";
 import { ballYState, ballState } from "../atoms/BallAtom";
-import { scoreState } from "../atoms/ScoreAtom";
+import { scoreState, gameClearState } from "../atoms/ScoreAtom";
 
 /**
  * ブロックの描画.
@@ -15,6 +15,9 @@ export const useDrawBlock = () => {
 
   //スコア
   const [score, setScore] = useRecoilState(scoreState);
+
+  //スコア
+  const setGameClear = useSetRecoilState(gameClearState);
 
   //円の動き
   const x = useRecoilValue(ballState).x;
@@ -115,7 +118,8 @@ export const useDrawBlock = () => {
             //もし全ブロックが消えたら(スコア = 全ブロックの数になったら)終了
             if (scoreItem === brickRowCount * brickColumnCount) {
               alert("YOU WIN, CONGRATULATIONS!");
-              document.location.reload();
+              setGameClear(true);
+              return;
             }
           }
         }

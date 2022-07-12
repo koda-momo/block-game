@@ -6,7 +6,7 @@ import { useMouseMove } from "../hooks/useMouseMove";
 import { useKeyUpDown } from "../hooks/useKeyUpDown";
 import { useDrawCanvas } from "../hooks/useDrawCanvas";
 import { useRecoilValue } from "recoil";
-import { gameOverState } from "../atoms/ScoreAtom";
+import { gameClearState, gameOverState } from "../atoms/ScoreAtom";
 
 const Home: FC = memo(() => {
   //描画
@@ -27,6 +27,7 @@ const Home: FC = memo(() => {
 
   //ゲームオーバー
   const gameOver = useRecoilValue(gameOverState);
+  const gameClear = useRecoilValue(gameClearState);
 
   /**
    * キー押下イベント発生時に発動.
@@ -43,7 +44,7 @@ const Home: FC = memo(() => {
    */
   useEffect(() => {
     //ゲームオーバーの際はリロード
-    if (gameOver) {
+    if (gameOver || gameClear) {
       document.location.reload();
     } else {
       //ゲームオーバーでなければアニメーション描画
