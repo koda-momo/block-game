@@ -17,3 +17,9 @@ export const gameOverState = atom({
   key: "gameOver",
   default: false,
 });
+
+//ゲームクリア
+export const gameClearState = atom({
+  key: "gameClear",
+  default: false,
+});
